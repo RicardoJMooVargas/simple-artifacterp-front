@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: #0f1115;
+  --bg-2: #151a22;
+  --panel: #141a22;
+  --panel-strong: #1b2430;
+  --text: #e7edf3;
+  --muted: #9aa6b2;
+  --border: #2a3644;
+  --accent: #f2c16d;
+  --accent-strong: #f0a84b;
+  --accent-soft: rgba(242, 193, 109, 0.2);
+  --shadow-soft: rgba(4, 8, 12, 0.6) 0 18px 40px -24px;
+  --shadow-strong: rgba(242, 193, 109, 0.25) 0 14px 30px -18px;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --sans: 'Manrope', 'Segoe UI', sans-serif;
+  --heading: 'Space Grotesk', 'Segoe UI', sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  font-family: var(--sans);
+  color: var(--text);
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(242, 193, 109, 0.15) 0, transparent 60%),
+    radial-gradient(1000px 600px at 90% 10%, rgba(107, 182, 196, 0.12) 0, transparent 55%),
+    linear-gradient(160deg, var(--bg), var(--bg-2));
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+p {
+  margin: 0;
+}
+
+#root {
+  min-height: 100svh;
+}
