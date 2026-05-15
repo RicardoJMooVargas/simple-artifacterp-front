@@ -1,0 +1,113 @@
+import { EmptyRequest } from "../models/requests/EmptyRequest";
+import { AssetUpsertRequest } from "../models/requests/inventory/AssetUpsertRequest";
+import { ForceDeleteRequest } from "../models/requests/inventory/ForceDeleteRequest";
+import { SupplyUpsertRequest } from "../models/requests/inventory/SupplyUpsertRequest";
+import { UnitMeasurementUpsertRequest } from "../models/requests/inventory/UnitMeasurementUpsertRequest";
+import { UploadImageRequest } from "../models/requests/inventory/UploadImageRequest";
+import { AssetResponse } from "../models/responses/inventory/AssetResponse";
+import { SupplyResponse } from "../models/responses/inventory/SupplyResponse";
+import { UnitMeasurementResponse } from "../models/responses/inventory/UnitMeasurementResponse";
+
+const host = import.meta.env.VITE_API_HOST || "";
+
+export const ApiConfig = {
+  host,
+  endpoints: {
+    inventoryCatalogsAssetsList: {
+      method: "GET",
+      path: "/api/inventory/catalogs/assets",
+      requestModel: EmptyRequest,
+      responseModel: AssetResponse,
+    },
+    inventoryCatalogsAssetsGetById: {
+      method: "GET",
+      path: "/api/inventory/catalogs/assets/:id",
+      requestModel: EmptyRequest,
+      responseModel: AssetResponse,
+    },
+    inventoryCatalogsAssetsCreate: {
+      method: "POST",
+      path: "/api/inventory/catalogs/assets",
+      requestModel: AssetUpsertRequest,
+      responseModel: AssetResponse,
+    },
+    inventoryCatalogsAssetsUpdate: {
+      method: "PUT",
+      path: "/api/inventory/catalogs/assets/:id",
+      requestModel: AssetUpsertRequest,
+      responseModel: AssetResponse,
+    },
+    inventoryCatalogsAssetsDelete: {
+      method: "DELETE",
+      path: "/api/inventory/catalogs/assets/:id",
+      requestModel: ForceDeleteRequest,
+      responseModel: null,
+    },
+    inventoryCatalogsSuppliesUploadImage: {
+      method: "POST",
+      path: "/api/inventory/catalogs/supplies/:id/image",
+      requestModel: UploadImageRequest,
+      responseModel: SupplyResponse,
+    },
+    inventoryCatalogsSuppliesList: {
+      method: "GET",
+      path: "/api/inventory/catalogs/supplies",
+      requestModel: EmptyRequest,
+      responseModel: SupplyResponse,
+    },
+    inventoryCatalogsSuppliesGetById: {
+      method: "GET",
+      path: "/api/inventory/catalogs/supplies/:id",
+      requestModel: EmptyRequest,
+      responseModel: SupplyResponse,
+    },
+    inventoryCatalogsSuppliesCreate: {
+      method: "POST",
+      path: "/api/inventory/catalogs/supplies",
+      requestModel: SupplyUpsertRequest,
+      responseModel: SupplyResponse,
+    },
+    inventoryCatalogsSuppliesUpdate: {
+      method: "PUT",
+      path: "/api/inventory/catalogs/supplies/:id",
+      requestModel: SupplyUpsertRequest,
+      responseModel: SupplyResponse,
+    },
+    inventoryCatalogsSuppliesDelete: {
+      method: "DELETE",
+      path: "/api/inventory/catalogs/supplies/:id",
+      requestModel: ForceDeleteRequest,
+      responseModel: null,
+    },
+    inventoryCatalogsUnitsMeasurementList: {
+      method: "GET",
+      path: "/api/inventory/catalogs/units-measurement",
+      requestModel: EmptyRequest,
+      responseModel: UnitMeasurementResponse,
+    },
+    inventoryCatalogsUnitsMeasurementGetById: {
+      method: "GET",
+      path: "/api/inventory/catalogs/units-measurement/:id",
+      requestModel: EmptyRequest,
+      responseModel: UnitMeasurementResponse,
+    },
+    inventoryCatalogsUnitsMeasurementCreate: {
+      method: "POST",
+      path: "/api/inventory/catalogs/units-measurement",
+      requestModel: UnitMeasurementUpsertRequest,
+      responseModel: UnitMeasurementResponse,
+    },
+    inventoryCatalogsUnitsMeasurementUpdate: {
+      method: "PUT",
+      path: "/api/inventory/catalogs/units-measurement/:id",
+      requestModel: UnitMeasurementUpsertRequest,
+      responseModel: UnitMeasurementResponse,
+    },
+    inventoryCatalogsUnitsMeasurementDelete: {
+      method: "DELETE",
+      path: "/api/inventory/catalogs/units-measurement/:id",
+      requestModel: ForceDeleteRequest,
+      responseModel: null,
+    },
+  },
+};

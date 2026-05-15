@@ -1,0 +1,13 @@
+export const SupplyResponse = {
+  id: "",
+  type: 0,
+  name: "",
+  color: 0,
+  brand: "",
+  image: "",
+  lastCost: 0,
+  description: "",
+  isActive: true,
+  tax: 0,
+  unitsMeasurementId: 0,
+};
