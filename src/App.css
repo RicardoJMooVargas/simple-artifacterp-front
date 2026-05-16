@@ -423,6 +423,124 @@
   gap: 20px;
 }
 
+.config-page {
+  min-height: 55vh;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.config-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 24px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--panel-strong), transparent 5%);
+}
+
+.config-kicker {
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.config-title {
+  margin: 0;
+  font-family: var(--heading);
+  font-size: 26px;
+}
+
+.config-subtitle {
+  margin: 6px 0 0;
+  color: var(--muted);
+}
+
+.config-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.config-actions .ui-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.config-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.config-panel {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  background: var(--panel-strong);
+}
+
+.config-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.config-preview-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  background: color-mix(in srgb, var(--panel-strong), transparent 8%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.config-preview-header {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.config-meta {
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.config-meta-value {
+  margin: 4px 0 12px;
+  font-family: var(--heading);
+  font-size: 15px;
+}
+
+.config-error,
+.config-success {
+  font-size: 12px;
+}
+
+.config-error {
+  color: #ff9b9b;
+}
+
+.config-success {
+  color: #7fe0c4;
+}
+
 .catalog-toolbar {
   display: grid;
   grid-template-columns: auto 1fr auto;
@@ -566,6 +684,27 @@
   font-family: var(--sans);
 }
 
+.field-with-suffix {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.field-with-suffix input {
+  flex: 1;
+}
+
+.field-suffix {
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--panel), transparent 8%);
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
 .crud-field-row {
   display: flex;
   align-items: center;
@@ -602,6 +741,12 @@
   flex-wrap: wrap;
   gap: 10px;
   align-items: center;
+}
+
+.crud-form-actions .ui-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .image-thumb {
@@ -871,6 +1016,15 @@
   .catalog-header {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .config-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .config-grid {
+    grid-template-columns: 1fr;
   }
 
   .catalog-toolbar {

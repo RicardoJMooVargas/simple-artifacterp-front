@@ -7,6 +7,7 @@ import { UploadImageRequest } from "../models/requests/inventory/UploadImageRequ
 import { AssetResponse } from "../models/responses/inventory/AssetResponse";
 import { SupplyResponse } from "../models/responses/inventory/SupplyResponse";
 import { UnitMeasurementResponse } from "../models/responses/inventory/UnitMeasurementResponse";
+import { ConfigurationSystemResponse } from "../models/responses/ConfigurationSystemResponse";
 
 const host = import.meta.env.VITE_API_HOST || "";
 
@@ -108,6 +109,36 @@ export const ApiConfig = {
       path: "/api/inventory/catalogs/units-measurement/:id",
       requestModel: ForceDeleteRequest,
       responseModel: null,
+    },
+    configurationSystemCheck: {
+      method: "POST",
+      path: "/api/ConfigurationSystem/check",
+      requestModel: EmptyRequest,
+      responseModel: ConfigurationSystemResponse,
+    },
+    configurationSystemGet: {
+      method: "GET",
+      path: "/api/ConfigurationSystem",
+      requestModel: EmptyRequest,
+      responseModel: ConfigurationSystemResponse,
+    },
+    configurationSystemUpdate: {
+      method: "PUT",
+      path: "/api/ConfigurationSystem/:id",
+      requestModel: EmptyRequest,
+      responseModel: ConfigurationSystemResponse,
+    },
+    configurationSystemFilesUpload: {
+      method: "POST",
+      path: "/api/ConfigurationSystem/files",
+      requestModel: EmptyRequest,
+      responseModel: EmptyRequest,
+    },
+    configurationSystemFilesList: {
+      method: "GET",
+      path: "/api/ConfigurationSystem/files",
+      requestModel: EmptyRequest,
+      responseModel: EmptyRequest,
     },
   },
 };

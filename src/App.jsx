@@ -5,6 +5,7 @@ import {
   FileText,
   Home,
   LayoutGrid,
+  Settings,
   ShoppingBag,
   ShoppingCart,
   UserRound,
@@ -14,6 +15,7 @@ import Sidebar from './components/Sidebar'
 import TopNav from './components/TopNav'
 import { useSession } from './auth/auth'
 import Catalogos from './pages/Catalogos'
+import ConfiguracionSistema from './pages/ConfiguracionSistema'
 import Cotizaciones from './pages/Cotizaciones'
 import Inventario from './pages/Inventario'
 import Publico from './pages/Publico'
@@ -65,6 +67,16 @@ function App() {
       section: {
         title: 'Catalogos',
         subtitle: 'Productos y listas',
+      },
+    },
+    {
+      path: '/configuracion-sistema',
+      label: 'Configuracion',
+      icon: Settings,
+      element: <ConfiguracionSistema />,
+      section: {
+        title: 'Configuracion',
+        subtitle: 'Parametros del sistema',
       },
     },
   ]
