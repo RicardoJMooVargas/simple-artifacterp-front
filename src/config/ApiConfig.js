@@ -140,5 +140,35 @@ export const ApiConfig = {
       requestModel: EmptyRequest,
       responseModel: EmptyRequest,
     },
+    inventoryAssortmentsList: {
+      method: "GET",
+      path: "/api/inventory/assortments",
+      requestModel: EmptyRequest,
+      responseModel: EmptyRequest,
+    },
+    inventoryAssortmentsCreate: {
+      method: "POST",
+      path: "/api/inventory/assortments",
+      requestModel: EmptyRequest,
+      responseModel: EmptyRequest,
+    },
+    inventoryAssortmentsFinalize: {
+      method: "PUT",
+      path: "/api/inventory/assortments/:id/finalize",
+      requestModel: EmptyRequest,
+      responseModel: EmptyRequest,
+    },
+    inventoryAssortmentsDirectInventory: {
+      method: "POST",
+      path: "/api/inventory/assortments/direct-inventory",
+      requestModel: EmptyRequest,
+      responseModel: EmptyRequest,
+    },
+    inventoryAssortmentsInventorySupplies: {
+      method: "GET",
+      path: "/api/inventory/assortments/inventory-supplies",
+      requestModel: EmptyRequest,
+      responseModel: EmptyRequest,
+    },
   },
 };
