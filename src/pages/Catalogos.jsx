@@ -28,6 +28,8 @@ const emptySupplyForm = {
   brand: '',
   imageFile: null,
   lastCost: '',
+  costQuantity: '',
+  unitCost: '',
   description: '',
   isActive: true,
   tax: '',
@@ -253,6 +255,8 @@ function Catalogos() {
         type: toNumber(supplyForm.type),
         color: toNumber(supplyForm.color),
         lastCost: toNumber(supplyForm.lastCost),
+        costQuantity: toNumber(supplyForm.costQuantity),
+        unitCost: toNumber(supplyForm.unitCost),
         tax: toNumber(supplyForm.tax),
         unitsMeasurementId: supplyForm.unitsMeasurementId,
       }
@@ -322,6 +326,8 @@ function Catalogos() {
       brand: supply.brand ?? '',
       imageFile: null,
       lastCost: supply.lastCost ?? '',
+      costQuantity: supply.costQuantity ?? '',
+      unitCost: supply.unitCost ?? '',
       description: supply.description ?? '',
       isActive: Boolean(supply.isActive),
       tax: supply.tax ?? '',
@@ -669,6 +675,8 @@ function Catalogos() {
               <span>Nombre</span>
               <span>Imagen</span>
               <span>Tipo / Color</span>
+              <span>Cantidad costo</span>
+              <span>Costo unitario</span>
               <span>Activo</span>
               <span>Unidad</span>
               <span>Acciones</span>
@@ -713,6 +721,8 @@ function Catalogos() {
                   />
                   {getSupplyTypeLabel(supply.type)} / {getSupplyColorLabel(supply.color)}
                 </span>
+                <span>{supply.costQuantity ?? 0}</span>
+                <span>{supply.unitCost ?? 0}</span>
                 <span>{supply.isActive ? 'Si' : 'No'}</span>
                 <span>
                   {unitsMeasurement.find(
@@ -832,6 +842,32 @@ function Catalogos() {
                     setSupplyForm((prev) => ({
                       ...prev,
                       lastCost: event.target.value,
+                    }))
+                  }
+                />
+              </label>
+              <label className="crud-field">
+                Cantidad costo
+                <input
+                  type="number"
+                  value={supplyForm.costQuantity}
+                  onChange={(event) =>
+                    setSupplyForm((prev) => ({
+                      ...prev,
+                      costQuantity: event.target.value,
+                    }))
+                  }
+                />
+              </label>
+              <label className="crud-field">
+                Costo unitario
+                <input
+                  type="number"
+                  value={supplyForm.unitCost}
+                  onChange={(event) =>
+                    setSupplyForm((prev) => ({
+                      ...prev,
+                      unitCost: event.target.value,
                     }))
                   }
                 />

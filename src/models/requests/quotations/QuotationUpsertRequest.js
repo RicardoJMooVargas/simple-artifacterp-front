@@ -1,0 +1,22 @@
+export const QuotationUpsertRequest = {
+  title: "",
+  date: "",
+  clientId: 0,
+  description: "",
+  status: 0,
+  productType: 0,
+  images: [],
+  lastEditedByName: "",
+  version: {
+    subDescription: "",
+    versionNumber: 1,
+    profitMargin: 0,
+    extraCosts: [],
+    productTax: 0,
+    laborCost: 0,
+    discount: 0,
+    lastEditedByName: "",
+  },
+  supplies: [],
+  assets: [],
+};

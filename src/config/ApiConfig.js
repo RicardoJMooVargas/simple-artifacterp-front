@@ -4,10 +4,13 @@ import { ForceDeleteRequest } from "../models/requests/inventory/ForceDeleteRequ
 import { SupplyUpsertRequest } from "../models/requests/inventory/SupplyUpsertRequest";
 import { UnitMeasurementUpsertRequest } from "../models/requests/inventory/UnitMeasurementUpsertRequest";
 import { UploadImageRequest } from "../models/requests/inventory/UploadImageRequest";
+import { QuotationUpsertRequest } from "../models/requests/quotations/QuotationUpsertRequest";
 import { AssetResponse } from "../models/responses/inventory/AssetResponse";
 import { SupplyResponse } from "../models/responses/inventory/SupplyResponse";
 import { UnitMeasurementResponse } from "../models/responses/inventory/UnitMeasurementResponse";
 import { ConfigurationSystemResponse } from "../models/responses/ConfigurationSystemResponse";
+import { QuotationContextResponse } from "../models/responses/quotations/QuotationContextResponse";
+import { QuotationListItemResponse } from "../models/responses/quotations/QuotationListItemResponse";
 
 const host = import.meta.env.VITE_API_HOST || "";
 
@@ -139,6 +142,42 @@ export const ApiConfig = {
       path: "/api/ConfigurationSystem/files",
       requestModel: EmptyRequest,
       responseModel: EmptyRequest,
+    },
+    quotationsList: {
+      method: "GET",
+      path: "/api/quotations",
+      requestModel: EmptyRequest,
+      responseModel: QuotationListItemResponse,
+    },
+    quotationsContext: {
+      method: "GET",
+      path: "/api/quotations/context",
+      requestModel: EmptyRequest,
+      responseModel: QuotationContextResponse,
+    },
+    quotationsCreate: {
+      method: "POST",
+      path: "/api/quotations",
+      requestModel: QuotationUpsertRequest,
+      responseModel: QuotationContextResponse,
+    },
+    quotationsUpdate: {
+      method: "PUT",
+      path: "/api/quotations/:id",
+      requestModel: QuotationUpsertRequest,
+      responseModel: QuotationContextResponse,
+    },
+    quotationsCatalogsSupplies: {
+      method: "GET",
+      path: "/api/quotations/catalogs/supplies",
+      requestModel: EmptyRequest,
+      responseModel: SupplyResponse,
+    },
+    quotationsCatalogsAssets: {
+      method: "GET",
+      path: "/api/quotations/catalogs/assets",
+      requestModel: EmptyRequest,
+      responseModel: AssetResponse,
     },
   },
 };

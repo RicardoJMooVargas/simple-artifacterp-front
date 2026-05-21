@@ -6,6 +6,8 @@ export const SupplyResponse = {
   brand: "",
   image: "",
   lastCost: 0,
+  costQuantity: 0,
+  unitCost: 0,
   description: "",
   isActive: true,
   tax: 0,
