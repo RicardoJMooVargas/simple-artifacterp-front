@@ -1,18 +1,21 @@
-import { NavLink } from 'react-router-dom'
+import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   Lock,
   PanelLeftClose,
   PanelLeftOpen,
   UserCircle2,
-} from 'lucide-react'
-import { useSession } from '../auth/auth'
-import { Button } from './ui/button'
+  LogOut,
+  X,
+} from "lucide-react";
+import { useSession } from "../auth/auth";
+import { Button } from "./ui/button";
 
 const roleLabels = {
-  0: 'Admin',
-  1: 'Publico',
-  3: 'Invitado',
-}
+  1: "Administrador",
+  2: "Publico",
+  3: "Invitado",
+};
 
 function Sidebar({
   items = [],
@@ -21,20 +24,35 @@ function Sidebar({
   onCollapseToggle,
   onNavigate,
 }) {
-  const { session, signIn, signOut } = useSession()
-  const displayName = session?.user?.name ?? 'Invitado'
-  const roleLabel = roleLabels[session?.role] ?? 'Invitado'
+  const { session, signOut } = useSession();
+  const navigate = useNavigate();
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const displayName = session?.user?.name ?? "Invitado";
+  const roleLabel = roleLabels[session?.role] ?? "Invitado";
   const initials = displayName
-    .split(' ')
+    .split(" ")
     .map((part) => part[0])
-    .join('')
+    .join("")
     .slice(0, 2)
-    .toUpperCase()
+    .toUpperCase();
+
+  const handleLogoutClick = () => {
+    if (session?.role === 1) {
+      setShowLogoutModal(true);
+    } else {
+      navigate("/login");
+    }
+  };
+
+  const handleConfirmLogout = () => {
+    setShowLogoutModal(false);
+    signOut();
+  };
 
   return (
     <aside
-      className={`side-nav${collapsed ? ' is-collapsed' : ''}${
-        isOpen ? ' is-open' : ''
+      className={`side-nav${collapsed ? " is-collapsed" : ""}${
+        isOpen ? " is-open" : ""
       }`}
     >
       <div className="side-header">
@@ -46,16 +64,20 @@ function Sidebar({
           type="button"
           className="side-toggle"
           onClick={onCollapseToggle}
-          aria-label={collapsed ? 'Expandir menu' : 'Contraer menu'}
+          aria-label={collapsed ? "Expandir menu" : "Contraer menu"}
         >
-          {collapsed ? <PanelLeftOpen size={18} /> : <PanelLeftClose size={18} />}
+          {collapsed ? (
+            <PanelLeftOpen size={18} />
+          ) : (
+            <PanelLeftClose size={18} />
+          )}
         </button>
       </div>
       <p className="side-title">Modulos</p>
       <ul className="side-list">
         {items.map((item, index) => {
-          const Icon = item.icon
-          const target = item.to ?? item.path
+          const Icon = item.icon;
+          const target = item.to ?? item.path;
           const content = (
             <>
               <Icon size={18} />
@@ -64,29 +86,29 @@ function Sidebar({
                 <Lock size={14} className="side-lock" />
               )}
             </>
-          )
+          );
 
           if (item.disabled) {
             return (
-              <li key={item.label} style={{ '--i': index }}>
+              <li key={item.label} style={{ "--i": index }}>
                 <div className="side-link is-disabled">{content}</div>
               </li>
-            )
+            );
           }
 
           return (
-            <li key={target ?? item.label} style={{ '--i': index }}>
+            <li key={target ?? item.label} style={{ "--i": index }}>
               <NavLink
                 to={target}
                 className={({ isActive }) =>
-                  `side-link${isActive ? ' is-active' : ''}`
+                  `side-link${isActive ? " is-active" : ""}`
                 }
                 onClick={onNavigate}
               >
                 {content}
               </NavLink>
             </li>
-          )
+          );
         })}
       </ul>
       <div className="side-footer">
@@ -106,13 +128,60 @@ function Sidebar({
           variant="primary"
           size="sm"
           className="side-action"
-          onClick={session?.role === 0 ? signOut : signIn}
+          onClick={handleLogoutClick}
         >
-          {session?.role === 0 ? 'Salir' : 'Ingresar'}
+          {session?.role === 1 ? "Salir" : "Ingresar"}
         </Button>
       </div>
+
+      {showLogoutModal && (
+        <div
+          className="logout-modal"
+          role="dialog"
+          aria-modal="true"
+          onClick={() => setShowLogoutModal(false)}
+        >
+          <div
+            className="logout-modal-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="logout-modal-header">
+              <LogOut size={20} />
+              <h3>¿Cerrar sesión?</h3>
+              <button
+                type="button"
+                className="logout-modal-close"
+                onClick={() => setShowLogoutModal(false)}
+                aria-label="Cerrar"
+              >
+                <X size={18} />
+              </button>
+            </div>
+            <p className="logout-modal-text">
+              ¿Estás seguro de que deseas cerrar sesión? Tendrás que volver a
+              iniciar sesión para acceder al sistema.
+            </p>
+            <div className="logout-modal-actions">
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={() => setShowLogoutModal(false)}
+              >
+                Cancelar
+              </Button>
+              <Button
+                type="button"
+                variant="danger"
+                onClick={handleConfirmLogout}
+              >
+                Cerrar sesión
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </aside>
-  )
+  );
 }
 
-export default Sidebar
+export default Sidebar;

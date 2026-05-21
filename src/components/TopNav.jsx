@@ -1,15 +1,15 @@
-import { Menu, ShieldCheck } from 'lucide-react'
-import { useSession } from '../auth/auth'
+import { Menu, ShieldCheck } from "lucide-react";
+import { useSession } from "../auth/auth";
 
 const roleLabels = {
-  0: 'Administrador',
-  1: 'Publico',
-  3: 'Invitado',
-}
+  1: "Administrador",
+  2: "Publico",
+  3: "Invitado",
+};
 
 function TopNav({ title, subtitle, menuIcon: MenuIcon = Menu, onMenuToggle }) {
-  const { session } = useSession()
-  const roleLabel = roleLabels[session?.role] ?? 'Invitado'
+  const { session } = useSession();
+  const roleLabel = roleLabels[session?.role] ?? "Invitado";
 
   return (
     <header className="top-nav">
@@ -39,14 +39,14 @@ function TopNav({ title, subtitle, menuIcon: MenuIcon = Menu, onMenuToggle }) {
           <ShieldCheck size={18} />
           <div>
             <p className="session-name">
-              {session?.user?.name ? session.user.name : 'Sin sesion'}
+              {session?.user?.name ? session.user.name : "Sin sesion"}
             </p>
             <p className="session-role">{roleLabel}</p>
           </div>
         </div>
       </div>
     </header>
-  )
+  );
 }
 
-export default TopNav
+export default TopNav;

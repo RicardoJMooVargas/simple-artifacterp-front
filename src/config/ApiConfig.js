@@ -1,9 +1,14 @@
 import { EmptyRequest } from "../models/requests/EmptyRequest";
+import { LoginRequest } from "../models/requests/LoginRequest";
+import { RegisterUserRequest } from "../models/requests/RegisterUserRequest";
 import { AssetUpsertRequest } from "../models/requests/inventory/AssetUpsertRequest";
 import { ForceDeleteRequest } from "../models/requests/inventory/ForceDeleteRequest";
 import { SupplyUpsertRequest } from "../models/requests/inventory/SupplyUpsertRequest";
 import { UnitMeasurementUpsertRequest } from "../models/requests/inventory/UnitMeasurementUpsertRequest";
 import { UploadImageRequest } from "../models/requests/inventory/UploadImageRequest";
+import { LoginResponse } from "../models/responses/LoginResponse";
+import { RegisterUserResponse } from "../models/responses/RegisterUserResponse";
+import { UserResponse } from "../models/responses/UserResponse";
 import { AssetResponse } from "../models/responses/inventory/AssetResponse";
 import { SupplyResponse } from "../models/responses/inventory/SupplyResponse";
 import { UnitMeasurementResponse } from "../models/responses/inventory/UnitMeasurementResponse";
@@ -14,6 +19,24 @@ const host = import.meta.env.VITE_API_HOST || "";
 export const ApiConfig = {
   host,
   endpoints: {
+    systemManagerLogin: {
+      method: "POST",
+      path: "/api/SystemManager/login",
+      requestModel: LoginRequest,
+      responseModel: LoginResponse,
+    },
+    systemManagerRegister: {
+      method: "POST",
+      path: "/api/SystemManager/register",
+      requestModel: RegisterUserRequest,
+      responseModel: RegisterUserResponse,
+    },
+    systemManagerUsers: {
+      method: "GET",
+      path: "/api/SystemManager/users",
+      requestModel: EmptyRequest,
+      responseModel: UserResponse,
+    },
     inventoryCatalogsAssetsList: {
       method: "GET",
       path: "/api/inventory/catalogs/assets",
