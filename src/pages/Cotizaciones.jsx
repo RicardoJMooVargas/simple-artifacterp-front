@@ -467,6 +467,7 @@ function Cotizaciones() {
   const quoteStatuses = contextData?.quoteStatuses ?? []
   const suppliesCatalog = contextData?.suppliesCatalog ?? []
   const assetsCatalog = contextData?.assetsCatalog ?? []
+  const costBreakdown = contextData?.quotation?.costBreakdown
 
   return (
     <section className="quotes-page">
@@ -658,6 +659,115 @@ function Cotizaciones() {
                 </p>
               </div>
             </div>
+          </section>
+
+          <section className="quotes-panel">
+            <div className="quotes-panel-header">
+              <h2 className="quotes-panel-title">Desglose de costos</h2>
+              <span className="quotes-panel-meta">Respuesta del servidor</span>
+            </div>
+            {costBreakdown ? (
+              <>
+                <div className="quotes-summary">
+                  <div>
+                    <p className="quotes-meta">Materiales</p>
+                    <p className="quotes-summary-value">
+                      {costBreakdown.materialsCost ?? 0}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="quotes-meta">Activos</p>
+                    <p className="quotes-summary-value">
+                      {costBreakdown.assetsCost ?? 0}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="quotes-meta">Mano de obra</p>
+                    <p className="quotes-summary-value">
+                      {costBreakdown.laborCost ?? 0}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="quotes-meta">Extras</p>
+                    <p className="quotes-summary-value">
+                      {costBreakdown.extraCosts ?? 0}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="quotes-meta">Base</p>
+                    <p className="quotes-summary-value">
+                      {costBreakdown.baseCost ?? 0}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="quotes-meta">Margen</p>
+                    <p className="quotes-summary-value">
+                      {costBreakdown.profitMargin ?? 0}%
+                    </p>
+                  </div>
+                  <div>
+                    <p className="quotes-meta">Ganancia</p>
+                    <p className="quotes-summary-value">
+                      {costBreakdown.profit ?? 0}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="quotes-meta">Subtotal</p>
+                    <p className="quotes-summary-value">
+                      {costBreakdown.subTotal ?? 0}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="quotes-meta">Descuento</p>
+                    <p className="quotes-summary-value">
+                      {costBreakdown.discount ?? 0}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="quotes-meta">Impuesto</p>
+                    <p className="quotes-summary-value">
+                      {costBreakdown.productTax ?? 0}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="quotes-meta">Total</p>
+                    <p className="quotes-summary-value">
+                      {costBreakdown.totalCost ?? 0}
+                    </p>
+                  </div>
+                </div>
+                <div className="quotes-items">
+                  {Array.isArray(costBreakdown.supplies) &&
+                    costBreakdown.supplies.map((item, index) => (
+                      <div className="quotes-item-row" key={`cost-${index}`}>
+                        <div>
+                          <p className="quotes-meta">Insumo</p>
+                          <p className="quotes-summary-value">{item.name}</p>
+                        </div>
+                        <div>
+                          <p className="quotes-meta">Cantidad</p>
+                          <p className="quotes-summary-value">
+                            {item.usageQuantity ?? 0}
+                          </p>
+                        </div>
+                        <div>
+                          <p className="quotes-meta">Costo</p>
+                          <p className="quotes-summary-value">
+                            {item.cost ?? 0}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  {!costBreakdown.supplies?.length && (
+                    <p className="quotes-empty">Sin insumos en el desglose.</p>
+                  )}
+                </div>
+              </>
+            ) : (
+              <p className="quotes-helper">
+                El desglose aparecera cuando el servidor calcule los costos.
+              </p>
+            )}
           </section>
 
           <section className="quotes-panel">

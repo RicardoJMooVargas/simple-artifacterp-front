@@ -10,7 +10,15 @@ import {
 import { Button } from '../components/ui/button'
 import { InventoryCatalogsService } from '../services/inventory/InventoryCatalogsService'
 
-const toNumber = (value) => (value === '' || value === null ? 0 : Number(value))
+const toNumber = (value) => {
+  if (value === '' || value === null || value === undefined) {
+    return 0
+  }
+
+  const normalized = String(value).replace(',', '.')
+  const parsed = Number(normalized)
+  return Number.isNaN(parsed) ? 0 : parsed
+}
 
 const emptyAssetForm = {
   name: '',
@@ -859,19 +867,17 @@ function Catalogos() {
                   }
                 />
               </label>
-              <label className="crud-field">
-                Costo unitario
-                <input
-                  type="number"
-                  value={supplyForm.unitCost}
-                  onChange={(event) =>
-                    setSupplyForm((prev) => ({
-                      ...prev,
-                      unitCost: event.target.value,
-                    }))
-                  }
-                />
-              </label>
+              {supplyEditingId && (
+                <label className="crud-field">
+                  Costo unitario
+                  <input
+                    type="number"
+                    value={supplyForm.unitCost}
+                    readOnly
+                    disabled
+                  />
+                </label>
+              )}
               <label className="crud-field">
                 Descripcion
                 <input
