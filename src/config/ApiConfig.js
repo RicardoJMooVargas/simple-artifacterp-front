@@ -1,10 +1,15 @@
 import { EmptyRequest } from "../models/requests/EmptyRequest";
+import { LoginRequest } from "../models/requests/LoginRequest";
+import { RegisterUserRequest } from "../models/requests/RegisterUserRequest";
 import { AssetUpsertRequest } from "../models/requests/inventory/AssetUpsertRequest";
 import { ForceDeleteRequest } from "../models/requests/inventory/ForceDeleteRequest";
 import { SupplyUpsertRequest } from "../models/requests/inventory/SupplyUpsertRequest";
 import { UnitMeasurementUpsertRequest } from "../models/requests/inventory/UnitMeasurementUpsertRequest";
 import { UploadImageRequest } from "../models/requests/inventory/UploadImageRequest";
 import { QuotationUpsertRequest } from "../models/requests/quotations/QuotationUpsertRequest";
+import { LoginResponse } from "../models/responses/LoginResponse";
+import { RegisterUserResponse } from "../models/responses/RegisterUserResponse";
+import { UserResponse } from "../models/responses/UserResponse";
 import { AssetResponse } from "../models/responses/inventory/AssetResponse";
 import { SupplyResponse } from "../models/responses/inventory/SupplyResponse";
 import { UnitMeasurementResponse } from "../models/responses/inventory/UnitMeasurementResponse";
@@ -17,6 +22,24 @@ const host = import.meta.env.VITE_API_HOST || "";
 export const ApiConfig = {
   host,
   endpoints: {
+    systemManagerLogin: {
+      method: "POST",
+      path: "/api/SystemManager/login",
+      requestModel: LoginRequest,
+      responseModel: LoginResponse,
+    },
+    systemManagerRegister: {
+      method: "POST",
+      path: "/api/SystemManager/register",
+      requestModel: RegisterUserRequest,
+      responseModel: RegisterUserResponse,
+    },
+    systemManagerUsers: {
+      method: "GET",
+      path: "/api/SystemManager/users",
+      requestModel: EmptyRequest,
+      responseModel: UserResponse,
+    },
     inventoryCatalogsAssetsList: {
       method: "GET",
       path: "/api/inventory/catalogs/assets",
@@ -178,6 +201,36 @@ export const ApiConfig = {
       path: "/api/quotations/catalogs/assets",
       requestModel: EmptyRequest,
       responseModel: AssetResponse,
+    },
+    inventoryAssortmentsList: {
+      method: "GET",
+      path: "/api/inventory/assortments",
+      requestModel: EmptyRequest,
+      responseModel: EmptyRequest,
+    },
+    inventoryAssortmentsCreate: {
+      method: "POST",
+      path: "/api/inventory/assortments",
+      requestModel: EmptyRequest,
+      responseModel: EmptyRequest,
+    },
+    inventoryAssortmentsFinalize: {
+      method: "PUT",
+      path: "/api/inventory/assortments/:id/finalize",
+      requestModel: EmptyRequest,
+      responseModel: EmptyRequest,
+    },
+    inventoryAssortmentsDirectInventory: {
+      method: "POST",
+      path: "/api/inventory/assortments/direct-inventory",
+      requestModel: EmptyRequest,
+      responseModel: EmptyRequest,
+    },
+    inventoryAssortmentsInventorySupplies: {
+      method: "GET",
+      path: "/api/inventory/assortments/inventory-supplies",
+      requestModel: EmptyRequest,
+      responseModel: EmptyRequest,
     },
   },
 };
