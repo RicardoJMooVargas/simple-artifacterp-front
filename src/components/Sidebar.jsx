@@ -1,13 +1,6 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import {
-  Lock,
-  PanelLeftClose,
-  PanelLeftOpen,
-  UserCircle2,
-  LogOut,
-  X,
-} from "lucide-react";
+import { Lock, UserCircle2, LogOut, X } from "lucide-react";
 import { useSession } from "../auth/auth";
 import { Button } from "./ui/button";
 
@@ -57,21 +50,17 @@ function Sidebar({
     >
       <div className="side-header">
         <div className="side-brand">
-          <span className="side-brand-mark">A</span>
+          <button
+            type="button"
+            className="side-brand-mark"
+            onClick={onCollapseToggle}
+            aria-label={collapsed ? "Expandir menu" : "Contraer menu"}
+            title={collapsed ? "Expandir menu" : "Contraer menu"}
+          >
+            A
+          </button>
           {!collapsed && <span className="side-brand-text">Artifacterp</span>}
         </div>
-        <button
-          type="button"
-          className="side-toggle"
-          onClick={onCollapseToggle}
-          aria-label={collapsed ? "Expandir menu" : "Contraer menu"}
-        >
-          {collapsed ? (
-            <PanelLeftOpen size={18} />
-          ) : (
-            <PanelLeftClose size={18} />
-          )}
-        </button>
       </div>
       <p className="side-title">Modulos</p>
       <ul className="side-list">

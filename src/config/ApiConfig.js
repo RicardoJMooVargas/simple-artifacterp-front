@@ -166,27 +166,28 @@ export const ApiConfig = {
       requestModel: EmptyRequest,
       responseModel: EmptyRequest,
     },
+    // Quotations endpoints
     quotationsList: {
       method: "GET",
-      path: "/api/quotations",
+      path: "/api/quotations/GetQuotations",
       requestModel: EmptyRequest,
       responseModel: QuotationListItemResponse,
     },
     quotationsContext: {
       method: "GET",
-      path: "/api/quotations/context",
+      path: "/api/quotations/GetQuotationContext",
       requestModel: EmptyRequest,
       responseModel: QuotationContextResponse,
     },
     quotationsCreate: {
       method: "POST",
-      path: "/api/quotations",
+      path: "/api/quotations/CreateQuotation",
       requestModel: QuotationUpsertRequest,
       responseModel: QuotationContextResponse,
     },
     quotationsUpdate: {
       method: "PUT",
-      path: "/api/quotations/:id",
+      path: "/api/quotations/UpdateQuotation/:id",
       requestModel: QuotationUpsertRequest,
       responseModel: QuotationContextResponse,
     },
@@ -202,6 +203,7 @@ export const ApiConfig = {
       requestModel: EmptyRequest,
       responseModel: AssetResponse,
     },
+    // Inventory Assortments endpoints
     inventoryAssortmentsList: {
       method: "GET",
       path: "/api/inventory/assortments",

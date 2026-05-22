@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import {
   Boxes,
@@ -28,6 +28,26 @@ function App() {
   const role = session?.role ?? 3;
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    const handleQuotesModalToggle = (event) => {
+      if (event?.detail?.open) {
+        setIsSidebarOpen(false);
+        setIsSidebarCollapsed(true);
+      }
+    };
+
+    window.addEventListener(
+      "quotes-edit-modal-toggle",
+      handleQuotesModalToggle,
+    );
+    return () => {
+      window.removeEventListener(
+        "quotes-edit-modal-toggle",
+        handleQuotesModalToggle,
+      );
+    };
+  }, []);
 
   const adminRoutes = [
     {
@@ -125,7 +145,7 @@ function App() {
   return (
     <div
       className="app-shell"
-      style={{ "--side-width": isSidebarCollapsed ? "96px" : "260px" }}
+      style={{ "--side-width": isSidebarCollapsed ? "84px" : "220px" }}
     >
       <TopNav
         title={currentSection?.title ?? "Artifacterp"}

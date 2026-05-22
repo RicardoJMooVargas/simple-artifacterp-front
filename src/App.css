@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   animation: page-fade 0.6s ease;
-  --side-width: 260px;
+  --side-width: 220px;
 }
 
 .top-nav {
@@ -117,7 +117,7 @@
   flex: 1;
   position: relative;
   padding: 24px 32px 32px;
-  padding-left: calc(var(--side-width) + 48px);
+  padding-left: calc(var(--side-width) + 40px);
 }
 
 .side-nav {
@@ -125,7 +125,7 @@
   top: 96px;
   left: 32px;
   bottom: 32px;
-  padding: 20px;
+  padding: 14px;
   border-radius: var(--radius-lg);
   background: var(--panel-strong);
   border: 1px solid var(--border);
@@ -133,7 +133,7 @@
   width: var(--side-width);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
   transition:
     width 0.25s ease,
     transform 0.3s ease;
@@ -168,24 +168,18 @@
   color: #0b0f14;
   font-family: var(--heading);
   font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.side-brand-mark:hover {
+  transform: translateY(-1px);
 }
 
 .side-brand-text {
   font-family: var(--heading);
   font-size: 15px;
-}
-
-.side-toggle {
-  border: none;
-  background: var(--panel);
-  color: var(--text);
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  border: 1px solid var(--border);
 }
 
 .side-nav.is-collapsed .side-title {
@@ -196,11 +190,11 @@
 }
 
 .side-title {
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: 0.8px;
   text-transform: uppercase;
   color: var(--muted);
-  margin: 0 0 16px;
+  margin: 0 0 10px;
 }
 
 .side-list {
@@ -209,7 +203,7 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .side-list li {
@@ -222,7 +216,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 12px;
+  padding: 9px 10px;
   border-radius: 12px;
   border: 1px solid transparent;
   color: var(--text);
@@ -268,7 +262,7 @@
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 32px;
+  padding: 28px;
   box-shadow: var(--shadow-soft);
   min-height: 60vh;
   position: relative;
@@ -1333,6 +1327,86 @@
   gap: 16px;
 }
 
+.quotes-table-container {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.quotes-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 860px;
+}
+
+.quotes-table thead {
+  background: color-mix(in srgb, var(--panel-strong), transparent 10%);
+}
+
+.quotes-table th,
+.quotes-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+.quotes-table th {
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--muted);
+  font-family: var(--heading);
+  font-size: 12px;
+}
+
+.quotes-table tbody tr:hover {
+  background: color-mix(in srgb, var(--accent-soft), transparent 60%);
+}
+
+.quotes-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.quotes-table-image {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  object-fit: cover;
+  background: var(--panel);
+}
+
+.quotes-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: color-mix(in srgb, var(--bg), transparent 35%);
+  backdrop-filter: blur(4px);
+  padding: 24px;
+  display: grid;
+  place-items: center;
+}
+
+.quotes-modal {
+  width: min(1120px, 100%);
+  max-height: calc(100vh - 48px);
+  overflow: auto;
+}
+
+.quotes-modal .quotes-panel {
+  margin: 0;
+}
+
+body.quotes-edit-modal-open .side-nav,
+body.quotes-edit-modal-open .side-backdrop {
+  pointer-events: none;
+}
+
+body.quotes-edit-modal-open .side-nav {
+  opacity: 0.35;
+}
+
 .quotes-card {
   border: 1px solid var(--border);
   border-radius: 16px;
@@ -1407,6 +1481,16 @@
   margin: 6px 0 0;
   font-family: var(--heading);
   font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .quotes-modal-backdrop {
+    padding: 12px;
+  }
+
+  .quotes-modal {
+    max-height: calc(100vh - 24px);
+  }
 }
 
 .quotes-form-grid {
@@ -1684,8 +1768,8 @@
   margin-top: auto;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding-top: 12px;
+  gap: 10px;
+  padding-top: 10px;
   border-top: 1px solid var(--border);
 }
 
