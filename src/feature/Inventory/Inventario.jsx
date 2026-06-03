@@ -6,10 +6,10 @@ import {
   RefreshCcw,
   Truck,
 } from 'lucide-react'
-import { useSession } from '../auth/auth'
-import { Button } from '../components/ui/button'
-import { InventoryCatalogsService } from '../services/inventory/InventoryCatalogsService'
-import { InventoryAssortmentsService } from '../services/inventory/InventoryAssortmentsService'
+import { useSession } from '../../auth/auth'
+import { Button } from '../../components/ui/button'
+import { InventoryCatalogsService } from '../../services/inventory/InventoryCatalogsService'
+import { InventoryAssortmentsService } from '../../services/inventory/InventoryAssortmentsService'
 
 const toNumber = (value) =>
   value === '' || value === null || value === undefined ? 0 : Number(value)

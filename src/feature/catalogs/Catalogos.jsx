@@ -7,8 +7,8 @@ import {
   Ruler,
   Warehouse,
 } from 'lucide-react'
-import { Button } from '../components/ui/button'
-import { InventoryCatalogsService } from '../services/inventory/InventoryCatalogsService'
+import { Button } from '../../components/ui/button'
+import { InventoryCatalogsService } from '../../services/inventory/InventoryCatalogsService'
 
 const toNumber = (value) => {
   if (value === '' || value === null || value === undefined) {

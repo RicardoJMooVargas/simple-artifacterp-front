@@ -14,13 +14,13 @@ import "./App.css";
 import Sidebar from "./components/Sidebar";
 import TopNav from "./components/TopNav";
 import { useSession } from "./auth/auth";
-import Catalogos from "./pages/Catalogos";
-import ConfiguracionSistema from "./pages/ConfiguracionSistema";
-import Cotizaciones from "./pages/Cotizaciones";
-import Inventario from "./pages/Inventario";
-import Publico from "./pages/Publico";
-import Ventas from "./pages/Ventas";
-import Login from "./pages/Login";
+import Catalogos from "./feature/catalogs/Catalogos";
+import ConfiguracionSistema from "./feature/configs/ConfiguracionSistema";
+import Cotizaciones from "./feature/quotation/Cotizaciones";
+import Inventario from "./feature/Inventory/Inventario";
+import Publico from "./feature/publicPage/Publico";
+import Ventas from "./feature/sales/Ventas";
+import Login from "./feature/login/Login";
 
 function App() {
   const { session } = useSession();

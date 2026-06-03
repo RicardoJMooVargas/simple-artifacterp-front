@@ -8,9 +8,9 @@ import {
   UserPlus,
   X,
 } from "lucide-react";
-import { Button } from "../components/ui/button";
-import { ConfigurationSystemService } from "../services/ConfigurationSystemService";
-import { AuthService } from "../services/AuthService";
+import { Button } from "../../components/ui/button";
+import { ConfigurationSystemService } from "../../services/ConfigurationSystemService";
+import { AuthService } from "../../services/AuthService";
 
 const emptyForm = {
   commercialName: "",

@@ -1,4 +1,4 @@
-import UnderConstructionCard from '../components/UnderConstructionCard'
+import UnderConstructionCard from '../../components/UnderConstructionCard'
 
 function Publico() {
   return (

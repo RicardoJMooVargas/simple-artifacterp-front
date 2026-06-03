@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
-import { useSession } from "../auth/auth";
+import { useSession } from "../../auth/auth";
 
 function Login() {
   const { session, signIn } = useSession();
