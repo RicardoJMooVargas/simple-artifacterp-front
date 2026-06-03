@@ -378,6 +378,24 @@ body.quotes-edit-modal-open .side-nav {
   border: 1px solid var(--border);
 }
 
+.quotes-image-preview {
+  position: relative;
+  margin: 0;
+}
+
+.quotes-image-preview button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--panel-strong), transparent 8%);
+  color: var(--text);
+  cursor: pointer;
+}
+
 @media (max-width: 768px) {
   .quotes-modal-backdrop {
     padding: 12px;

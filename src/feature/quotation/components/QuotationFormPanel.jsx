@@ -401,14 +401,18 @@ function QuotationFormPanel({
             />
           </label>
           {!!draft.images.length && (
-            <div className="quotes-tags">
+            <div className="quotes-image-grid">
               {draft.images.map((image) => (
-                <span className="quotes-tag" key={image}>
-                  {image}
-                  <button type="button" onClick={() => removeImage(image)}>
+                <figure className="quotes-image-preview" key={image}>
+                  <img src={image} alt="Imagen de cotizacion" />
+                  <button
+                    type="button"
+                    aria-label="Quitar imagen"
+                    onClick={() => removeImage(image)}
+                  >
                     x
                   </button>
-                </span>
+                </figure>
               ))}
             </div>
           )}
