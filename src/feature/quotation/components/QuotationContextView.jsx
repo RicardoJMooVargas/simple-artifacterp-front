@@ -16,6 +16,7 @@ function QuotationContextView({
   contextId,
   contextLoading,
   costBreakdown,
+  showControls = true,
   productTypes,
   quoteStatuses,
   suppliesCatalog,
@@ -41,23 +42,25 @@ function QuotationContextView({
       <section className="quotes-panel">
         <div className="quotes-panel-header">
           <h2 className="quotes-panel-title">Contexto</h2>
-          <div className="quotes-toolbar">
-            <label className="quotes-field inline">
-              QuotationId
-              <input
-                type="number"
-                value={contextId}
-                onChange={(event) => onContextIdChange(event.target.value)}
-              />
-            </label>
-            <Button
-              variant="secondary"
-              onClick={() => onLoadContext()}
-              disabled={contextLoading}
-            >
-              {contextLoading ? "Cargando..." : "Cargar"}
-            </Button>
-          </div>
+          {showControls && (
+            <div className="quotes-toolbar">
+              <label className="quotes-field inline">
+                QuotationId
+                <input
+                  type="number"
+                  value={contextId}
+                  onChange={(event) => onContextIdChange(event.target.value)}
+                />
+              </label>
+              <Button
+                variant="secondary"
+                onClick={() => onLoadContext()}
+                disabled={contextLoading}
+              >
+                {contextLoading ? "Cargando..." : "Cargar"}
+              </Button>
+            </div>
+          )}
         </div>
         {contextError && <p className="quotes-error">{contextError}</p>}
         <div className="quotes-summary">

@@ -6,7 +6,6 @@ import QuotationEditModal from "./components/QuotationEditModal";
 import QuotationFormPanel from "./components/QuotationFormPanel";
 import QuotationListView from "./components/QuotationListView";
 import QuotationPageHeader from "./components/QuotationPageHeader";
-import QuotationTabs from "./components/QuotationTabs";
 import { useImagePreviews } from "./hooks/useImagePreviews";
 import {
   buildQuotationPayload,
@@ -53,6 +52,7 @@ function Cotizaciones() {
   const [editContextId, setEditContextId] = useState("");
   const [editContextLoading, setEditContextLoading] = useState(false);
   const [editContextError, setEditContextError] = useState("");
+  const [editContextData, setEditContextData] = useState(null);
   const [editFormData, setEditFormData] = useState(() =>
     createInitialDraft(sessionUserName),
   );
@@ -77,6 +77,20 @@ function Cotizaciones() {
     assetsCatalog,
     costBreakdown,
   } = getQuotationContextCatalogs(contextData);
+  const {
+    productTypes: editProductTypes,
+    quoteStatuses: editQuoteStatuses,
+    suppliesCatalog: editSuppliesCatalog,
+    assetsCatalog: editAssetsCatalog,
+    costBreakdown: editCostBreakdown,
+  } = getQuotationContextCatalogs(editContextData);
+  const hasQuotationContext = Boolean(
+    contextData?.quotation?.quotation || contextData?.quotation?.costBreakdown,
+  );
+  const hasEditQuotationContext = Boolean(
+    editContextData?.quotation?.quotation ||
+      editContextData?.quotation?.costBreakdown,
+  );
 
   const loadQuotations = async (overrideFilters) => {
     setLoading(true);
@@ -134,11 +148,13 @@ function Cotizaciones() {
   const loadEditContext = async (useId) => {
     setEditContextLoading(true);
     setEditContextError("");
+    setEditContextData(null);
     try {
       const idToUse = useId ?? editContextId;
       const response = await QuotationsService.getContext(
         idToUse ? Number(idToUse) : undefined,
       );
+      setEditContextData(response);
       applyQuotationToDraft(response, setEditFormData);
       if (response?.quotation?.quotation?.quotationId) {
         const responseId = String(response.quotation.quotation.quotationId);
@@ -163,11 +179,7 @@ function Cotizaciones() {
   }, []);
 
   useEffect(() => {
-    if (
-      (activeTab === "crear" || activeTab === "contexto") &&
-      !contextData &&
-      !contextLoading
-    ) {
+    if (activeTab === "crear" && !contextData && !contextLoading) {
       const timer = window.setTimeout(() => {
         void loadContext(contextId || "");
       }, 0);
@@ -232,6 +244,7 @@ function Cotizaciones() {
     setEditContextError("");
     setEditPayloadError("");
     setEditActionMessage("");
+    setEditContextData(null);
     setEditImageFiles([]);
     setEditFormData(createInitialDraft(sessionUserName));
     setIsEditModalOpen(true);
@@ -242,6 +255,7 @@ function Cotizaciones() {
     setIsEditModalOpen(false);
     setEditPayloadError("");
     setEditActionMessage("");
+    setEditContextData(null);
   };
 
   const getPayload = (draft, setDraftPayloadError) => {
@@ -263,9 +277,14 @@ function Cotizaciones() {
     setActionLoading(true);
     setActionMessage("");
     try {
-      await QuotationsService.createQuotation(payload, imageFiles);
-      resetFormState();
-      setActiveTab("listado");
+      const response = await QuotationsService.createQuotation(payload, imageFiles);
+      setContextData(response);
+      applyQuotationToDraft(response, setFormData);
+      if (response?.quotation?.quotation?.quotationId) {
+        setUpdateId(String(response.quotation.quotation.quotationId));
+      }
+      setImageFiles([]);
+      setActionMessage("Cotizacion creada correctamente.");
       await loadQuotations();
     } catch (err) {
       setActionMessage(err?.message ?? "Error al crear cotizacion");
@@ -293,6 +312,7 @@ function Cotizaciones() {
         payload,
         editImageFiles,
       );
+      setEditContextData(response);
       applyQuotationToDraft(response, setEditFormData);
       setIsEditModalOpen(false);
       await loadQuotations();
@@ -307,16 +327,11 @@ function Cotizaciones() {
     <section className="quotes-page">
       <QuotationPageHeader
         activeTab={activeTab}
-        actionLoading={editActionLoading}
-        canUpdate={Boolean(editUpdateId)}
         onGoList={() => setActiveTab("listado")}
-        onGoCreate={() => setActiveTab("crear")}
         onLoadNewContext={() => loadContext("")}
         onOpenNew={handleOpenNew}
         onReload={() => loadQuotations()}
-        onUpdate={handleUpdate}
       />
-      <QuotationTabs activeTab={activeTab} onChange={setActiveTab} />
 
       {activeTab === "listado" && (
         <QuotationListView
@@ -332,60 +347,75 @@ function Cotizaciones() {
         />
       )}
 
-      {activeTab === "contexto" && (
-        <QuotationContextView
-          assetsCatalog={assetsCatalog}
-          contextData={contextData}
-          contextError={contextError}
-          contextId={contextId}
-          contextLoading={contextLoading}
-          costBreakdown={costBreakdown}
-          productTypes={productTypes}
-          quoteStatuses={quoteStatuses}
-          suppliesCatalog={suppliesCatalog}
-          onContextIdChange={setContextId}
-          onLoadContext={loadContext}
-        />
-      )}
-
       {activeTab === "crear" && (
-        <QuotationFormPanel
-          actionLoading={actionLoading}
-          actionMessage={actionMessage}
-          assetsCatalog={assetsCatalog}
-          contextError={contextError}
-          contextLoading={contextLoading}
-          draft={formData}
-          imagePreviews={imagePreviews}
-          payloadError={payloadError}
-          productTypes={productTypes}
-          quoteStatuses={quoteStatuses}
-          suppliesCatalog={suppliesCatalog}
-          updateId={updateId}
-          onAction={handleCreate}
-          onChange={setFormData}
-          onFileChange={setImageFiles}
-        />
+        <>
+          <QuotationFormPanel
+            actionLoading={actionLoading}
+            actionMessage={actionMessage}
+            assetsCatalog={assetsCatalog}
+            contextError={contextError}
+            contextLoading={contextLoading}
+            draft={formData}
+            imagePreviews={imagePreviews}
+            payloadError={payloadError}
+            productTypes={productTypes}
+            quoteStatuses={quoteStatuses}
+            suppliesCatalog={suppliesCatalog}
+            updateId={updateId}
+            onAction={handleCreate}
+            onChange={setFormData}
+            onFileChange={setImageFiles}
+          />
+          {hasQuotationContext && (
+            <QuotationContextView
+              showControls={false}
+              assetsCatalog={assetsCatalog}
+              contextData={contextData}
+              contextError={contextError}
+              contextId={contextId}
+              contextLoading={contextLoading}
+              costBreakdown={costBreakdown}
+              productTypes={productTypes}
+              quoteStatuses={quoteStatuses}
+              suppliesCatalog={suppliesCatalog}
+            />
+          )}
+        </>
       )}
 
       {isEditModalOpen && (
         <QuotationEditModal
           actionLoading={editActionLoading}
           actionMessage={editActionMessage}
-          assetsCatalog={assetsCatalog}
+          assetsCatalog={editAssetsCatalog}
           contextError={editContextError}
           contextLoading={editContextLoading}
           draft={editFormData}
           imagePreviews={editImagePreviews}
           payloadError={editPayloadError}
-          productTypes={productTypes}
-          quoteStatuses={quoteStatuses}
-          suppliesCatalog={suppliesCatalog}
+          productTypes={editProductTypes}
+          quoteStatuses={editQuoteStatuses}
+          suppliesCatalog={editSuppliesCatalog}
           updateId={editUpdateId}
           onAction={handleUpdate}
           onChange={setEditFormData}
           onClose={handleCloseEditModal}
           onFileChange={setEditImageFiles}
+          contextViewProps={
+            hasEditQuotationContext
+              ? {
+                  assetsCatalog: editAssetsCatalog,
+                  contextData: editContextData,
+                  contextError: editContextError,
+                  contextId: editContextId,
+                  contextLoading: editContextLoading,
+                  costBreakdown: editCostBreakdown,
+                  productTypes: editProductTypes,
+                  quoteStatuses: editQuoteStatuses,
+                  suppliesCatalog: editSuppliesCatalog,
+                }
+              : null
+          }
         />
       )}
     </section>

@@ -205,6 +205,10 @@
   margin: 0;
 }
 
+.quotes-modal-context {
+  margin-top: 16px;
+}
+
 body.quotes-edit-modal-open .side-nav,
 body.quotes-edit-modal-open .side-backdrop {
   pointer-events: none;

@@ -2,21 +2,12 @@ import { Button } from "../../../components/ui/button";
 
 function QuotationPageHeader({
   activeTab,
-  actionLoading,
-  canUpdate,
   onGoList,
-  onGoCreate,
   onLoadNewContext,
   onOpenNew,
   onReload,
-  onUpdate,
 }) {
-  const title =
-    activeTab === "listado"
-      ? "Listado y filtros"
-      : activeTab === "contexto"
-        ? "Contexto y desglose"
-        : "Crear y editar";
+  const title = activeTab === "listado" ? "Listado y filtros" : "Crear cotizacion";
 
   return (
     <header className="quotes-header">
@@ -37,15 +28,6 @@ function QuotationPageHeader({
               Crear cotizacion
             </Button>
           </>
-        ) : activeTab === "contexto" ? (
-          <>
-            <Button variant="secondary" onClick={onGoCreate}>
-              Ir a crear
-            </Button>
-            <Button variant="primary" onClick={onLoadNewContext}>
-              Contexto nuevo
-            </Button>
-          </>
         ) : (
           <>
             <Button variant="secondary" onClick={onGoList}>
@@ -53,13 +35,6 @@ function QuotationPageHeader({
             </Button>
             <Button variant="primary" onClick={onLoadNewContext}>
               Contexto nuevo
-            </Button>
-            <Button
-              variant="secondary"
-              onClick={onUpdate}
-              disabled={actionLoading || !canUpdate}
-            >
-              {actionLoading ? "Enviando..." : "Actualizar cotizacion"}
             </Button>
           </>
         )}
@@ -69,3 +44,4 @@ function QuotationPageHeader({
 }
 
 export default QuotationPageHeader;
+ 
